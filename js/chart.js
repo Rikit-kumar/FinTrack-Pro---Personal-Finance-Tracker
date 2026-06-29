@@ -1,7 +1,7 @@
 let financeChart;
 
 function createChart() {
-  let user = getDataFromLS("fintrackUser");
+  let user = getDataFromLS("loggedInUser");
 
   if (!user) return;
 
@@ -17,6 +17,22 @@ function createChart() {
       expense += Number(item.amount);
     }
   });
+
+  function formatChartMoney(value) {
+    let user = getDataFromLS("loggedInUser");
+
+    let currency = user?.currency || "INR";
+
+    let symbol = {
+      INR: "₹",
+      USD: "$",
+      EUR: "€",
+      GBP: "£",
+      JPY: "¥",
+    };
+
+    return symbol[currency] + value.toLocaleString();
+  }
 
   const canvas = document.querySelector("#chart");
 
@@ -60,7 +76,7 @@ function createChart() {
         tooltip: {
           callbacks: {
             label: function (context) {
-              return " ₹ " + context.raw.toLocaleString();
+              return formateChartMoney(context.raw);
             },
           },
         },
@@ -71,7 +87,7 @@ function createChart() {
           beginAtZero: true,
           ticks: {
             callback: function (value) {
-              return "₹" + value;
+              return formatChartMoney(value);
             },
           },
 
@@ -90,4 +106,6 @@ function createChart() {
   });
 }
 
-createChart();
+window.addEventListener("load",()=>{
+    createChart();
+});

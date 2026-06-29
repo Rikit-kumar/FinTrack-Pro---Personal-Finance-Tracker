@@ -4,7 +4,7 @@ if (!loggedIn) {
   window.location.href = "index.html";
 }
 
-let user = getDataFromLS("fintrackUser");
+let user = getDataFromLS("loggedInUser");
 
 if (!user) {
   window.location.href = "index.html";
@@ -26,10 +26,35 @@ const modalForm = document.querySelector("#modal-form");
 
 let editId = null;
 
+function updateUserData() {
+  saveDataLS("loggedInUser", {
+    ...user,
+    transactions: transactions,
+  });
+
+  let users = getDataFromLS("fintrackUser") || [];
+
+  users = users.map((item) => {
+    if (item.id === user.id) {
+      return {
+        ...user,
+        transactions: transactions,
+      };
+    }
+
+    return item;
+  });
+
+  saveDataLS("fintrackUser", users);
+}
+
+if (userName) {
+  userName.innerText = user.name;
+}
+
 let themeBtn = document.querySelector(".theme-icon");
 let themeIcon = document.querySelector(".theme-icon i");
 let body = document.body;
-
 
 themeBtn.addEventListener("click", () => {
   let currentTheme = body.dataset.theme;
@@ -42,25 +67,20 @@ themeBtn.addEventListener("click", () => {
     themeIcon.className = "ri-moon-fill";
   }
 
-  saveDataLS("theme", body.dataset.theme);
+  user.theme = body.dataset.theme;
+  updateUserData();
 });
 
 function loadTheme() {
-  let saved = getDataFromLS("theme");
+  if (user.theme) {
+    body.dataset.theme = user.theme;
 
-  if (saved) {
-    body.dataset.theme = saved;
-
-    if (saved === "dark") {
+    if (user.theme === "dark") {
       themeIcon.classList = "ri-sun-fill";
     } else {
       themeIcon.className = "ri-moon-fill";
     }
   }
-}
-
-if (userName) {
-  userName.innerText = user.name;
 }
 
 openModal.addEventListener("click", () => {
@@ -87,27 +107,24 @@ modalForm.addEventListener("submit", (evet) => {
   let category = document.querySelector("#category").value;
 
   let newTransaction = {
-    id: Date.now(),
-    type: type,
-    title: title,
+    id: editId ? editId : Date.now(),
+    type,
+    title,
     amount: Number(amount),
     date: date || new Date().toLocaleDateString(),
-    category: category,
+    category,
   };
 
   if (editId) {
     transactions = transactions.map((item) => {
-      if (item.id === editId) {
-        return newTransaction;
-      }
-      return item;
+      return item.id === editId ? newTransaction : item;
     });
     editId = null;
   } else {
     transactions.push(newTransaction);
   }
 
-  saveDataLS("fintrackUser", { ...user, transactions: transactions });
+  updateUserData();
 
   modalForm.reset();
   modal.style.display = "none";
@@ -135,7 +152,9 @@ function updateDashBoard() {
   totalTransaction.innerText = transactions.length;
 
   renderTransactions();
-  createChart();
+  if (typeof createChart === "function") {
+    createChart();
+  }
 }
 
 function renderTransactions(data = transactions) {
@@ -198,14 +217,16 @@ function editTransaction(id) {
   selects[1].value = selected.category;
 }
 
+window.editTransaction=editTransaction;
+
 function deleteTransaction(id) {
   transactions = transactions.filter((i) => i.id !== id);
 
-  saveDataLS("fintrackUser", { ...user, transactions: transactions });
+  updateUserData();
   updateDashBoard();
 }
 
-window.deleteTransaction = deleteTransaction;
+window.deleteTransaction=deleteTransaction;
 
 const search = document.querySelector("#search");
 const filter = document.querySelector("#filter");
@@ -228,6 +249,7 @@ filter.addEventListener("change", filterTransactions);
 
 document.querySelector(".logoutBtn").addEventListener("click", () => {
   deleteDataFromLS("loggedIn");
+  deleteDataFromLS("loggedInUser");
   window.location.href = "index.html";
 });
 
@@ -255,21 +277,13 @@ resetBtn.addEventListener("click", () => {
     return;
   }
 
-  let user = getDataFromLS("fintrackUser");
-  if (user) {
-    let resetUser = {
-      name: user.name,
-      password: user.password,
-      currency: "INR",
-      theme: "light",
-      transactions: [],
-    };
+  transactions = [];
 
-    saveDataLS("fintrackUser", resetUser);
-    alert("All Data Reset Successfully");
-    updateDashBoard();
-    loadTheme();
-  }
+  updateUserData();
+  
+  alert("All Transactions Deleted");
+  updateDashBoard();
+
 });
 
 updateDashBoard();
