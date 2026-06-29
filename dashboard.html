@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinTech - Pro</title>
+    <link rel="stylesheet" href="css/application.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body data-theme="light">
+    <div class="app">
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-img">
+            <i class="ri-stack-fill"></i>
+          </div>
+          <div class="logo-name">
+            <h2>FinTech Pro</h2>
+            <p>Enterprise Finance</p>
+          </div>
+        </div>
+
+        <nav>
+          <button class="active">
+            <span><i class="ri-layout-grid-line"></i></span>Dashboard
+          </button>
+
+          <button>
+            <span><i class="ri-settings-3-line"></i></span>Settings
+          </button>
+        </nav>
+
+        <button class="add-btn" id="openModal">
+          <span><i class="ri-add-large-line"></i></span> Add Transaction
+        </button>
+      </aside>
+
+      <main>
+        <header>
+          <div class="user-info">
+            <h3 class="userName">Rikit Kumar</h3>
+          </div>
+
+          <button class="logoutBtn">
+            <span><i class="ri-logout-box-r-line"></i></span>Logout
+          </button>
+        </header>
+
+        <section class="content">
+          <h1>Financial Overview</h1>
+          <p>Real-time tracking application</p>
+
+          <div class="cards">
+            <div class="card">
+              <div class="icon">
+                <i class="ri-bank-fill"></i>
+              </div>
+              <h4>Current Balance</h4>
+              <h2 id="balance">₹0.00</h2>
+            </div>
+
+            <div class="card">
+              <div class="icon">
+                <i class="ri-arrow-right-up-long-line"></i>
+              </div>
+              <h4>Total Income</h4>
+              <h2 id="income">₹0.00</h2>
+            </div>
+
+            <div class="card">
+              <div class="icon">
+                <i class="ri-arrow-right-down-long-line"></i>
+              </div>
+              <h4>Total Expense</h4>
+              <h2 id="expense">₹0.00</h2>
+            </div>
+
+            <div class="card">
+              <div class="icon">
+                <i class="ri-exchange-line"></i>
+              </div>
+              <h4>Transaction</h4>
+              <h2 id="count">0</h2>
+            </div>
+          </div>
+
+          <div class="dashboard">
+            <div class="chart-box">
+              <h2>Cash Flow Analysis</h2>
+              <canvas id="chart"></canvas>
+            </div>
+
+            <div class="preference-card">
+              <h2>Preferences</h2>
+
+              <div class="theme-mode">
+                <h4>Dark Mode</h4>
+                <div class="theme-icon">
+                  <i class="ri-moon-fill"></i>
+                </div>
+              </div>
+
+              <button class="reset-btn">
+                <span><i class="ri-delete-bin-4-fill"></i></span>Reset All Data
+              </button>
+            </div>
+
+
+            <div class="transaction">
+              <h2>All Transactions</h2>
+
+              <div class="filters">
+                <input
+                  type="search"
+                  id="search"
+                  placeholder="Search transaction"
+                />
+
+                <select id="filter">
+                  <option value="all">All</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody id="transactionList"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="transactionModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Add Transaction</h2>
+
+          <button class="close-modal" id="closeModal">
+            <i class="ri-close-line"></i>
+          </button>
+        </div>
+
+        <form id="modal-form">
+          <label>Type</label>
+
+          <select id="type">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+
+          <label>Description</label>
+
+          <input type="text" id="title" placeholder="e.g. Amazon, Salary, Coffee" />
+
+          <div class="row">
+            <div>
+              <label>Amount</label>
+
+              <input id="amount" type="number" placeholder="₹0" />
+            </div>
+
+            <div>
+              <label>Date</label>
+
+              <input id="date" type="date" />
+            </div>
+          </div>
+
+          <label>Category</label>
+
+          <select id="category">
+            <option>Select a Category</option>
+            <option>Food</option>
+            <option>Shopping</option>
+            <option>Salary</option>
+            <option>Travel</option>
+            <option>Recharge & Bill</option>
+            <option>Petrol & Auto</option>
+            <option>Other</option>
+          </select>
+
+          <button class="save-btn">Save Transaction</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/chart.js"></script>
+    <!-- <script src="js/settings.js"></script> -->
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>
