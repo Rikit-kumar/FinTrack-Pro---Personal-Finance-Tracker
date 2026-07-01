@@ -437,7 +437,7 @@ th {
   color: var(--text);
 }
 
-.save-setting{
+.save-setting {
   margin-top: 30px;
   padding: 12px 25px;
   border: none;
@@ -655,5 +655,137 @@ form select {
   main {
     margin-left: 0;
     width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .content {
+    padding: 1.2rem;
+  }
+
+  header {
+    height: auto;
+    padding: 1rem;
+    justify-content: space-between;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-box {
+    height: 350px;
+  }
+
+  .settings-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .user-info h3::after {
+    display: none;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .content h1 {
+    font-size: 1.5rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+  }
+
+  .card h2 {
+    font-size: 1.4rem;
+  }
+
+  .chart-box {
+    height: 300px;
+    padding: 1rem;
+  }
+
+  #chart {
+    height: 220px !important;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+  }
+
+  .transaction {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 650px;
+  }
+
+  .settings-section {
+    padding: 15px;
+  }
+
+  .settings-section h1 {
+    font-size: 24px;
+  }
+
+  .settings-row {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-card {
+    padding: 15px;
+  }
+
+  /* Modal */
+
+  .modal-content {
+    width: 92%;
+    padding: 1rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo h2 {
+    font-size: 1rem;
+  }
+
+  header button {
+    width: 100%;
+  }
+
+  .card h4 {
+    font-size: 0.8rem;
   }
 }
