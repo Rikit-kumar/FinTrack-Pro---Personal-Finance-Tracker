@@ -217,7 +217,7 @@ function editTransaction(id) {
   selects[1].value = selected.category;
 }
 
-window.editTransaction=editTransaction;
+window.editTransaction = editTransaction;
 
 function deleteTransaction(id) {
   transactions = transactions.filter((i) => i.id !== id);
@@ -226,7 +226,7 @@ function deleteTransaction(id) {
   updateDashBoard();
 }
 
-window.deleteTransaction=deleteTransaction;
+window.deleteTransaction = deleteTransaction;
 
 const search = document.querySelector("#search");
 const filter = document.querySelector("#filter");
@@ -244,8 +244,10 @@ function filterTransactions() {
   renderTransactions(result);
 }
 
-search.addEventListener("input", filterTransactions);
-filter.addEventListener("change", filterTransactions);
+if (search && filter) {
+  search.addEventListener("input", filterTransactions);
+  filter.addEventListener("change", filterTransactions);
+}
 
 document.querySelector(".logoutBtn").addEventListener("click", () => {
   deleteDataFromLS("loggedIn");
@@ -280,10 +282,78 @@ resetBtn.addEventListener("click", () => {
   transactions = [];
 
   updateUserData();
-  
+
   alert("All Transactions Deleted");
   updateDashBoard();
+});
 
+let settingsForm = document.querySelector("#settingsForm");
+let nameInput = document.querySelector("#settingName");
+let currencyInput = document.querySelector("#currency");
+
+if (user) {
+  nameInput.value = user.name;
+  currencyInput.value = user.currency || "INR";
+}
+
+const dashboardBtn = document.querySelector("#dashboardBtn");
+const settingsBtn = document.querySelector("#settingsBtn");
+
+const dashboardSection = document.querySelector("#dashboardSection");
+const settingsSection = document.querySelector("#settingsSection");
+
+settingsBtn.addEventListener("click", () => {
+  dashboardSection.style.display = "none";
+
+  settingsSection.style.display = "block";
+
+  settingsBtn.classList.add("active");
+  dashboardBtn.classList.remove("active");
+});
+
+dashboardBtn.addEventListener("click", () => {
+  settingsSection.style.display = "none";
+
+  dashboardSection.style.display = "grid";
+
+  dashboardBtn.classList.add("active");
+  settingsBtn.classList.remove("active");
+
+  setTimeout(() => {
+    if (typeof createChart === "function") {
+      createChart();
+    }
+  }, 100);
+});
+
+settingsForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  let updatedUser = {
+    ...getDataFromLS("loggedInUser"),
+    name: nameInput.value,
+    currency: currencyInput.value,
+  };
+
+  saveDataLS("loggedInUser", updatedUser);
+  alert("Settings Updated Successfully");
+  window.location.reload();
+});
+
+let resetAccount = document.querySelector("#resetAccount");
+
+resetAccount.addEventListener("click", () => {
+  let confirmDelete = confirm("Delete your complete account data?");
+
+  if (!confirmDelete) return;
+
+  deleteDataFromLS("fintrackUser");
+  deleteDataFromLS("loggedInUser");
+  deleteDataFromLS("loggedIn");
+
+  alert("Account Reset Successfully");
+
+  window.location.href = "index.html";
 });
 
 updateDashBoard();

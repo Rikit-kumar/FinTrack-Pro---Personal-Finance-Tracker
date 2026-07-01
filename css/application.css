@@ -285,7 +285,7 @@ header button {
   padding: 1.5rem;
 }
 
-.chart-box{
+.chart-box {
   height: 400px;
 }
 
@@ -302,11 +302,11 @@ header button {
   padding: 1.4rem;
 }
 
-.preference-card h2{
+.preference-card h2 {
   font-size: 1.7rem;
 }
 
-.theme-mode{
+.theme-mode {
   margin-top: 2rem;
   display: flex;
   align-items: center;
@@ -315,7 +315,7 @@ header button {
   padding-bottom: 1rem;
 }
 
-.theme-mode .theme-icon{
+.theme-mode .theme-icon {
   height: 50px;
   width: 50px;
   border: 1px solid var(--border);
@@ -324,9 +324,10 @@ header button {
   justify-content: center;
   border-radius: 1rem;
   background: var(--primary);
+  cursor: pointer;
 }
 
-.theme-mode .theme-icon i{
+.theme-mode .theme-icon i {
   font-size: 1.5rem;
   color: white;
 }
@@ -387,6 +388,80 @@ th {
   color: var(--muted);
 }
 
+.settings-section {
+  padding: 30px;
+  display: none;
+}
+
+.settings-section h1 {
+  font-size: 32px;
+}
+
+.settings-section p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.settings-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 25px;
+  max-width: 850px;
+  margin-bottom: 20px;
+}
+
+.settings-card h2 {
+  margin-bottom: 20px;
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field input,
+.field select {
+  height: 42px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.save-setting{
+  margin-top: 30px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--addBtn);
+  color: white;
+  /* width: fit-content; */
+}
+
+.danger-card button {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .settings-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 .modal {
   position: fixed;
@@ -397,7 +472,6 @@ th {
   justify-content: center;
   z-index: 999;
 }
-
 
 .modal-content {
   width: 400px;
@@ -492,46 +566,46 @@ form select {
   opacity: 0.9;
 }
 
-.action-btns{
-    display:flex;
-    gap:0.8rem;
-    align-items:center;
+.action-btns {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
 }
 
-.transaction-del-btn, .transaction-edit-btn{
+.transaction-del-btn,
+.transaction-edit-btn {
   padding: 0.5rem 0.6rem;
-  border:none;
-  border-radius:0.6rem;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:.25s;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
   font-size: 1rem;
 }
 
-.transaction-edit-btn{
-    background:#dbeafe;
-    color:#2563eb;
+.transaction-edit-btn {
+  background: #dbeafe;
+  color: #2563eb;
 }
 
-.transaction-edit-btn:hover{
-    background:#2563eb;
-    color:white;
-    transform:translateY(-2px);
+.transaction-edit-btn:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
 }
 
-.transaction-del-btn{
-    background:#fee2e2;
-    color:#dc2626;
+.transaction-del-btn {
+  background: #fee2e2;
+  color: #dc2626;
 }
 
-.transaction-del-btn:hover{
-    background:#dc2626;
-    color:white;
-    transform:translateY(-2px);
+.transaction-del-btn:hover {
+  background: #dc2626;
+  color: white;
+  transform: translateY(-2px);
 }
-
 
 @media (max-width: 500px) {
   .modal-content {

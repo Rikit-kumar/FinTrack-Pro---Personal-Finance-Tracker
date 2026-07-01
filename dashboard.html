@@ -1,14 +1,12 @@
-<!doctype html>
-<html lang="en">
+  <!doctype html>
+  <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FinTech - Pro</title>
     <link rel="stylesheet" href="css/application.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
   </head>
 
   <body data-theme="light">
@@ -25,11 +23,11 @@
         </div>
 
         <nav>
-          <button class="active">
+          <button id="dashboardBtn" class="active">
             <span><i class="ri-layout-grid-line"></i></span>Dashboard
           </button>
 
-          <button>
+          <button id="settingsBtn">
             <span><i class="ri-settings-3-line"></i></span>Settings
           </button>
         </nav>
@@ -88,7 +86,7 @@
             </div>
           </div>
 
-          <div class="dashboard">
+          <div id="dashboardSection" class="dashboard">
             <div class="chart-box">
               <h2>Cash Flow Analysis</h2>
               <canvas id="chart"></canvas>
@@ -109,16 +107,11 @@
               </button>
             </div>
 
-
             <div class="transaction">
               <h2>All Transactions</h2>
 
               <div class="filters">
-                <input
-                  type="search"
-                  id="search"
-                  placeholder="Search transaction"
-                />
+                <input type="search" id="search" placeholder="Search transaction" />
 
                 <select id="filter">
                   <option value="all">All</option>
@@ -143,9 +136,50 @@
               </table>
             </div>
           </div>
+
+          <div id="settingsSection" class="settings-section">
+            <h1>Settings</h1>
+            <p>Manage your account profile and app formatting.</p>
+
+            <div class="settings-card">
+              <h2>Profile Details</h2>
+
+              <form id="settingsForm">
+                <div class="settings-row">
+                  <div class="field">
+                    <label>Full Name</label>
+
+                    <input type="text" id="settingName" />
+                  </div>
+
+                  <div class="field">
+                    <label>Primary Currency</label>
+
+                    <select id="currency">
+                      <option value="INR">INR (₹)</option>
+                      <option value="USD">USD ($)</option>
+                      <option value="EUR">EUR (€)</option>
+                      <option value="GBP">GBP (£)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button class="save-setting">Save Changes</button>
+              </form>
+            </div>
+
+            <div class="settings-card danger-card">
+              <h2>Account Actions</h2>
+
+              <button id="resetAccount">Reset Account</button>
+            </div>
+          </div>
+
         </section>
       </main>
     </div>
+
+
 
     <div class="modal" id="transactionModal">
       <div class="modal-content">
@@ -207,4 +241,5 @@
     <!-- <script src="js/settings.js"></script> -->
     <script src="js/dashboard.js"></script>
   </body>
-</html>
+
+  </html>

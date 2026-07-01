@@ -74,9 +74,10 @@ function createChart() {
         },
 
         tooltip: {
+          
           callbacks: {
             label: function (context) {
-              return formateChartMoney(context.raw);
+              return formatChartMoney(context.raw);
             },
           },
         },
